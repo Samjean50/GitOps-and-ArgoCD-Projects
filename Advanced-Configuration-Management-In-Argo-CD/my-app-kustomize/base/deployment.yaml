@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app-kustomize
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-app-kustomize
+  template:
+    metadata:
+      labels:
+        app: my-app-kustomize
+    spec:
+      containers:
+      - name: my-app-kustomize
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: MY_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: my-secret
+              key: password
