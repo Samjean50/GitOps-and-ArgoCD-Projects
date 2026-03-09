@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cm
+  namespace: argocd
+  labels:
+    app.kubernetes.io/name: argocd-cm
+    app.kubernetes.io/part-of: argocd
+data:
+  url: https://argocd.example.com
+  "logFormat": "text"
+  dex.config: |
+    connectors:
+      - type: oidc
+        id: oauth
+        name: OAuth
+        config:
+          issuer: https://accounts.google.com
+          clientID: <YOUR_GOOGLE_CLIENT_ID>
+          clientSecret: <YOUR_GOOGLE_CLIENT_SECRET>
+          redirectURI: https://argocd.example.com/auth/callback
