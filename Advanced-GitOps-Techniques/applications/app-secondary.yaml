@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-app-prod
+  namespace: argocd
+spec:
+  destination:
+    name: ''
+    namespace: prod-namespace
+    server: 'https://<SECONDARY_CLUSTER_ENDPOINT>'
+  source:
+    path: environments/prod
+    repoURL: 'https://github.com/Samjean50/gitops-advanced.git'
+    targetRevision: HEAD
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

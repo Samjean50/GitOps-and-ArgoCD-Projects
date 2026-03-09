@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-app-primary
+  namespace: argocd
+spec:
+  destination:
+    name: ''
+    namespace: dev-namespace
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: environments/dev
+    repoURL: 'https://github.com/Samjean50/gitops-advanced.git'
+    targetRevision: HEAD
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
